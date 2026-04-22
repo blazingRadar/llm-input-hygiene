@@ -3,7 +3,7 @@
 
 Short methodology note based on diagnostic work in structured LLM evaluation pipelines.
 
-Focus: separating input-driven variance from model behavior.
+Focus: separating input-driven variance from model behavior and identifying when "model nondeterminism" is actually pipeline-induced.
 
 **Author:** Nick Cunningham  
 **Date:** 2026-04-22
