@@ -1,162 +1,226 @@
 %PDF-1.4
-%“Œ‹ž ReportLab Generated PDF document (opensource)
+%âãÏÓ
 1 0 obj
-<<
-/F1 2 0 R /F2 3 0 R /F3 5 0 R /F4 9 0 R
->>
+<< /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<<
-/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
->>
+<< /Type /Pages /Kids [7 0 R 9 0 R 11 0 R 13 0 R] /Count 4 >>
 endobj
 3 0 obj
-<<
-/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
->>
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 4 0 obj
-<<
-/Contents 14 0 R /MediaBox [ 0 0 612 792 ] /Parent 13 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
->>
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
 endobj
 5 0 obj
-<<
-/BaseFont /ZapfDingbats /Name /F3 /Subtype /Type1 /Type /Font
->>
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
 endobj
 6 0 obj
-<<
-/Contents 15 0 R /MediaBox [ 0 0 612 792 ] /Parent 13 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
->>
+<< /Length 3377 >>
+stream
+BT
+/F2 17 Tf
+1 0 0 1 72.0 720.0 Tm (Input Hygiene in Structured LLM Evaluation Pipelines) Tj
+/F2 13 Tf
+1 0 0 1 72.0 684.0 Tm (Empirical Findings on Verdict Variance from Non-Evidence Fields) Tj
+/F1 10 Tf
+1 0 0 1 72.0 657.0 Tm (Author: Nick Cunningham) Tj
+1 0 0 1 72.0 643.0 Tm (Date: 2026-04-22) Tj
+1 0 0 1 72.0 629.0 Tm (Scope: Diagnostic work on a structured LLM evaluation pipeline. Findings are narrow by) Tj
+1 0 0 1 84.0 615.0 Tm (design.) Tj
+/F2 13 Tf
+1 0 0 1 72.0 590.0 Tm (Summary) Tj
+/F1 10 Tf
+1 0 0 1 72.0 563.0 Tm (In a structured LLM evaluation pipeline, we observed verdict variance that initially) Tj
+1 0 0 1 84.0 549.0 Tm (looked like model nondeterminism and turned out to be driven by non-evidence fields in) Tj
+1 0 0 1 84.0 535.0 Tm (the gate input. A single non-evidence field, a wall-clock fetch timestamp, was) Tj
+1 0 0 1 84.0 521.0 Tm (sufficient to induce verdict variance across runs. Removing it restored full determinism) Tj
+1 0 0 1 84.0 507.0 Tm (on byte-identical input for the tested case.) Tj
+1 0 0 1 72.0 487.0 Tm (Attempting to generalize the cleanup to other fields classified as metadata caused) Tj
+1 0 0 1 84.0 473.0 Tm (verdict drift on boundary cases, forcing reverts. The useful finding is not a list of) Tj
+1 0 0 1 84.0 459.0 Tm (safe fields but a discipline: field classification cannot be done by inspection alone) Tj
+1 0 0 1 84.0 445.0 Tm (and requires per-field empirical verification.) Tj
+1 0 0 1 72.0 425.0 Tm (This suggests that some apparent nondeterminism in structured evaluation systems may be) Tj
+1 0 0 1 84.0 411.0 Tm (an artifact of unstable input construction rather than model behavior alone.) Tj
+1 0 0 1 72.0 391.0 Tm (This is a methodology note from small-scale diagnostic work. It is not broad validation.) Tj
+1 0 0 1 84.0 377.0 Tm (It is shared because the pattern is useful for teams building similar evaluation) Tj
+1 0 0 1 84.0 363.0 Tm (pipelines.) Tj
+/F2 13 Tf
+1 0 0 1 72.0 338.0 Tm (Context) Tj
+/F1 10 Tf
+1 0 0 1 72.0 311.0 Tm (The pipeline under study had three broad stages: a worker processed evidence, a builder) Tj
+1 0 0 1 84.0 297.0 Tm (composed a packet for adjudication, and a gate model returned a verdict. Observed) Tj
+1 0 0 1 84.0 283.0 Tm (verdict variance across repeated runs raised the question of whether the variance was) Tj
+1 0 0 1 84.0 269.0 Tm (model sampling noise or something in the input.) Tj
+1 0 0 1 72.0 249.0 Tm (The investigation was not originally aimed at input hygiene. It surfaced during) Tj
+1 0 0 1 84.0 235.0 Tm (model-portability work: we were testing whether a structured evaluation pipeline could) Tj
+1 0 0 1 84.0 221.0 Tm (produce stable verdicts when the underlying gate model was substituted. While testing a) Tj
+1 0 0 1 84.0 207.0 Tm (GPT-family gate model at temperature 0, we observed verdict variance that did not fit) Tj
+1 0 0 1 84.0 193.0 Tm (the pattern we expected from model-level nondeterminism alone. The variance was) Tj
+1 0 0 1 84.0 179.0 Tm (structured and tied to specific cases. Investigating that variance led to the) Tj
+1 0 0 1 84.0 165.0 Tm (input-hygiene finding.) Tj
+/F2 13 Tf
+1 0 0 1 72.0 140.0 Tm (First Finding) Tj
+/F1 10 Tf
+1 0 0 1 72.0 113.0 Tm (For one boundary case, five repeated runs produced four verdicts in one direction and) Tj
+1 0 0 1 84.0 99.0 Tm (one in the other. Setting the gate temperature to 0 and running ten times on truly) Tj
+ET
+endstream
 endobj
 7 0 obj
-<<
-/Contents 16 0 R /MediaBox [ 0 0 612 792 ] /Parent 13 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
->>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R >>
 endobj
 8 0 obj
-<<
-/Contents 17 0 R /MediaBox [ 0 0 612 792 ] /Parent 13 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
->>
+<< /Length 3458 >>
+stream
+BT
+/F1 10 Tf
+1 0 0 1 84.0 720.0 Tm (byte-identical input produced ten identical verdicts. On byte-identical input at) Tj
+1 0 0 1 84.0 706.0 Tm (temperature 0, the gate model was deterministic in that local test.) Tj
+1 0 0 1 72.0 686.0 Tm (Comparing the gate inputs from the original variance-producing runs revealed that the) Tj
+1 0 0 1 84.0 672.0 Tm (only varying field was a wall-clock timestamp recording when upstream data had been) Tj
+1 0 0 1 84.0 658.0 Tm (fetched. The timestamp was provenance metadata, not case evidence. We removed it from) Tj
+1 0 0 1 84.0 644.0 Tm (the gate-visible packet and kept it in downstream records.) Tj
+1 0 0 1 72.0 624.0 Tm (After the fix, the same case, run ten times on input that now differed only in) Tj
+1 0 0 1 84.0 610.0 Tm (non-visible fields, produced identical gate inputs by hash and stable verdicts.) Tj
+1 0 0 1 72.0 590.0 Tm (This separated input variance from sampling variance. The verdict drift we had) Tj
+1 0 0 1 84.0 576.0 Tm (attributed to model behavior was driven by gate-visible input variance.) Tj
+/F2 13 Tf
+1 0 0 1 72.0 551.0 Tm (Second Finding) Tj
+/F1 10 Tf
+1 0 0 1 72.0 524.0 Tm (Encouraged by the timestamp result, we audited the full gate-visible packet for other) Tj
+1 0 0 1 84.0 510.0 Tm (non-evidence fields. Several fields looked like metadata: navigation URLs, platform) Tj
+1 0 0 1 84.0 496.0 Tm (identifiers, profile fields, runner metadata, and similar fields.) Tj
+1 0 0 1 72.0 476.0 Tm (We removed a batch of these fields. On the boundary case, five runs produced five) Tj
+1 0 0 1 84.0 462.0 Tm (identical gate inputs by hash but all returned the opposite verdict from the stable) Tj
+1 0 0 1 84.0 448.0 Tm (pre-cut baseline. The cut had crossed from hygiene into verdict-affecting territory. At) Tj
+1 0 0 1 84.0 434.0 Tm (least one field we had classified as metadata contained information the gate was using) Tj
+1 0 0 1 84.0 420.0 Tm (to reason toward the original verdict. The cut was reverted.) Tj
+1 0 0 1 72.0 400.0 Tm (We then tried one field at a time. The next candidate recorded paths an upstream system) Tj
+1 0 0 1 84.0 386.0 Tm (had fetched. It looked harmless. On the boundary case, removing it flipped verdicts five) Tj
+1 0 0 1 84.0 372.0 Tm (out of five. It was reverted.) Tj
+1 0 0 1 72.0 352.0 Tm (Two cuts had now failed in the same way: fields that appeared to be metadata by) Tj
+1 0 0 1 84.0 338.0 Tm (inspection affected gate reasoning.) Tj
+/F2 13 Tf
+1 0 0 1 72.0 313.0 Tm (Canary Discipline) Tj
+/F1 10 Tf
+1 0 0 1 72.0 286.0 Tm (After the first over-aggressive cut, we established a protocol for further field) Tj
+1 0 0 1 84.0 272.0 Tm (removal:) Tj
+1 0 0 1 72.0 252.0 Tm (1. Before a cut, run the proposed-removed pipeline five times on one boundary case and) Tj
+1 0 0 1 84.0 238.0 Tm (one clear-direction case.) Tj
+1 0 0 1 72.0 224.0 Tm (2. Record gate input hashes and verdicts for all runs.) Tj
+1 0 0 1 72.0 210.0 Tm (3. Revert cuts that change verdicts on either canary case, regardless of the) Tj
+1 0 0 1 84.0 196.0 Tm (classification reasoning.) Tj
+1 0 0 1 72.0 182.0 Tm (4. Accept cuts that preserve verdicts on both canaries only after a broader rerun) Tj
+1 0 0 1 84.0 168.0 Tm (confirms no wider drift.) Tj
+1 0 0 1 72.0 148.0 Tm (The canary discipline caught the second failed cut. Without it, we would have propagated) Tj
+1 0 0 1 84.0 134.0 Tm (a verdict-drifting change as infrastructure cleanup.) Tj
+/F2 13 Tf
+1 0 0 1 72.0 109.0 Tm (What This Means) Tj
+ET
+endstream
 endobj
 9 0 obj
-<<
-/BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font
->>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R >>
 endobj
 10 0 obj
-<<
-/Contents 18 0 R /MediaBox [ 0 0 612 792 ] /Parent 13 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
->>
+<< /Length 3686 >>
+stream
+BT
+/F1 10 Tf
+1 0 0 1 72.0 720.0 Tm (The narrow finding is solid within this diagnostic setting: a wall-clock timestamp in) Tj
+1 0 0 1 84.0 706.0 Tm (gate-visible input caused verdict variance that was not model nondeterminism. Removing) Tj
+1 0 0 1 84.0 692.0 Tm (it improved input determinism.) Tj
+1 0 0 1 72.0 672.0 Tm (The broader generalization, that non-evidence fields can be systematically identified) Tj
+1 0 0 1 84.0 658.0 Tm (and removed by inspection, is not supported by our testing. Field classification by) Tj
+1 0 0 1 84.0 644.0 Tm (inspection failed at least twice on fields that looked reasonable to remove. The) Tj
+1 0 0 1 84.0 630.0 Tm (discipline that holds up is empirical verification per field, not global cleanup.) Tj
+1 0 0 1 72.0 610.0 Tm (After the initial finding, we applied the same methodology to two additional evaluation) Tj
+1 0 0 1 84.0 596.0 Tm (pipelines in our own work. One showed no observable drift after cleanup. The other) Tj
+1 0 0 1 84.0 582.0 Tm (showed verdict drift on a canonical test case. The mixed result reinforces the canary) Tj
+1 0 0 1 84.0 568.0 Tm (discipline: drift is pipeline-specific, and the methodology catches drift that) Tj
+1 0 0 1 84.0 554.0 Tm (inspection misses.) Tj
+1 0 0 1 72.0 534.0 Tm (Small residual variance may remain even after removing identified variance sources. We) Tj
+1 0 0 1 84.0 520.0 Tm (did not fully characterize whether that residual variance came from API-level behavior) Tj
+1 0 0 1 84.0 506.0 Tm (at temperature 0 or from additional input fields we had not identified. That question) Tj
+1 0 0 1 84.0 492.0 Tm (remains open.) Tj
+/F2 13 Tf
+1 0 0 1 72.0 467.0 Tm (Scope And Limits) Tj
+/F1 10 Tf
+1 0 0 1 72.0 440.0 Tm (This work was done on curated diagnostic cases in structured evaluation pipelines using) Tj
+1 0 0 1 84.0 426.0 Tm (a GPT-family gate model at temperature 0. The raw case corpus, gate inputs, model logs,) Tj
+1 0 0 1 84.0 412.0 Tm (and verdict logs are not included in this public artifact.) Tj
+1 0 0 1 72.0 392.0 Tm (Findings should be understood as:) Tj
+1 0 0 1 72.0 372.0 Tm (- Direct evidence: one specific field, a wall-clock timestamp, caused verdict variance) Tj
+1 0 0 1 84.0 358.0 Tm (  when included in gate-visible input.) Tj
+1 0 0 1 72.0 344.0 Tm (- Direct evidence: empirical field classification is necessary; inspection-based) Tj
+1 0 0 1 84.0 330.0 Tm (  classification failed in this setting.) Tj
+1 0 0 1 72.0 316.0 Tm (- Direct evidence: the canary discipline caught classification errors.) Tj
+1 0 0 1 72.0 302.0 Tm (- Direct evidence: the methodology surfaced pipeline-specific drift that would otherwise) Tj
+1 0 0 1 84.0 288.0 Tm (  have been absorbed into "model nondeterminism.") Tj
+1 0 0 1 72.0 274.0 Tm (- Not established: which other specific fields are safe to remove.) Tj
+1 0 0 1 72.0 260.0 Tm (- Not established: whether the pattern generalizes to other pipelines, models, or corpora) Tj
+1 0 0 1 84.0 246.0 Tm (  at scale.) Tj
+1 0 0 1 72.0 226.0 Tm (Anyone relying on this note for production decisions should run the protocol on their) Tj
+1 0 0 1 84.0 212.0 Tm (own pipeline.) Tj
+/F2 13 Tf
+1 0 0 1 72.0 187.0 Tm (Why This Is Worth Sharing) Tj
+/F1 10 Tf
+1 0 0 1 72.0 160.0 Tm (LLM nondeterminism at temperature 0 has multiple possible causes, including) Tj
+1 0 0 1 84.0 146.0 Tm (implementation details, batching, hardware, routing, or model-serving behavior. This) Tj
+1 0 0 1 84.0 132.0 Tm (note adds a simpler possibility for structured evaluation systems: some variance may) Tj
+1 0 0 1 84.0 118.0 Tm (come from unstable gate-visible input.) Tj
+1 0 0 1 72.0 98.0 Tm (Separating input variance from model variance is useful before concluding that a gate is) Tj
+ET
+endstream
 endobj
 11 0 obj
-<<
-/PageMode /UseNone /Pages 13 0 R /Type /Catalog
->>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R >>
 endobj
 12 0 obj
-<<
-/Author (Nick Cunningham) /CreationDate (D:20260422170951+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20260422170951+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
-  /Subject (\(unspecified\)) /Title (Input Hygiene in Structured LLM Evaluation Pipelines) /Trapped /False
->>
+<< /Length 1176 >>
+stream
+BT
+/F1 10 Tf
+1 0 0 1 84.0 720.0 Tm (unreliable. The field-hygiene discipline is simple:) Tj
+1 0 0 1 72.0 700.0 Tm (1. Inspect the gate input surface for fields that are not evidence about the case being) Tj
+1 0 0 1 84.0 686.0 Tm (judged.) Tj
+1 0 0 1 72.0 672.0 Tm (2. Test candidate removals with canary cases before accepting them as cleanup.) Tj
+1 0 0 1 72.0 658.0 Tm (3. Revert cuts that change canary verdicts, regardless of how reasonable the) Tj
+1 0 0 1 84.0 644.0 Tm (classification seemed.) Tj
+1 0 0 1 72.0 624.0 Tm (The methodology is more portable than any specific list of fields.) Tj
+/F2 13 Tf
+1 0 0 1 72.0 599.0 Tm (Closing Note) Tj
+/F1 10 Tf
+1 0 0 1 72.0 572.0 Tm (This is the output of diagnostic work on a narrow problem that surfaced during broader) Tj
+1 0 0 1 84.0 558.0 Tm (model-portability testing. It is not a product announcement, a formal research) Tj
+1 0 0 1 84.0 544.0 Tm (contribution, or a claim to have solved input hygiene at scale. The framing is) Tj
+1 0 0 1 84.0 530.0 Tm (intentionally narrow: the first fix worked, broader cleanup failed, and empirical) Tj
+1 0 0 1 84.0 516.0 Tm (per-field verification was the discipline that held up.) Tj
+ET
+endstream
 endobj
 13 0 obj
-<<
-/Count 5 /Kids [ 4 0 R 6 0 R 7 0 R 8 0 R 10 0 R ] /Type /Pages
->>
-endobj
-14 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1945
->>
-stream
-Gatm;?'E_q'RekGESh+o9c?)gSEq2KV.GBZ=u,TaMdjkd=BdPDS2C3;4]cg4Z+Cr'ATrm1A*JH6F7(?K$%AZ=DcRJK]V;$)7MNhK.O[p/$*@O_mHX!.<RdR5(GoL=3/m=Gd3Mo@,8u$bbnUXU-egF\<NmE@Pd9+)Aue^6l+6EWlX?QaQD?@No<ubg@qAE=?iNU)4&IoQ/#2@2Wb&0:FAHWDM,li]8:TR,+'';&@E!<cUbquhL6],S+l+QB3t#KQ<jf4_'.(=k3`gXf#SF_92HQ<EpVJDR1J*9X'tl>JFLtJ^jDS?S=lu%q9Th$FC&"C\k:jd;G]o$caaYMUBaF94j1!%bcl88+dIThC`46W57Ha434#qd6]Y'q_'$j(3A/*'#]ggm0j`d,liV%s<)f;*H)=<Esj5(&^IH8IrjO>2j`qS:'<g"6LRQ[b`PY7o4H@./sfcp92GY_(ZT8!Ks2M%a*KKWT2Pfu3bPORDT0&58a-^o/=RBuR24IN(g*6d+mZbEFdf<glTekXp>%dc<1mu@\J>N%k@jcq7;"-pm]iE3)Ij=u>pH],n-7?RkiQ-!T/g?;dfBe.t]'a^EE_U,f.^is^1/Le/D-T0KtVap;KTd!<h[D6],D1Jr7p^&u9VIp"7M`@7RZf'H/YGHW^'RbA78+<:T1uLqKIC:H*.d=UElAn_T0-%O"-r^B[$F'UW%;l]7dITMiN2(XK\e^\kcB2tN)q1Fb1-<E@b*.Mm_o49tZD@)D(s^mZ&I7TRcl=k6?<4IH",LIi<OAK"J+oLpkL3uD.^O1K;H?D`S!n744PO?TZVic\n;n<HXJ?ZCn:EFC\?feB%ttN+R7?@)-Or-#Y,O*56QcK_bJc5O+_E#oGiZM($o!MhiAiTNPX?r`+BU)uirqG?S9hebpe@nrVJ6=o:"Q@S]NL0?9PCl>mO/#[2]*8pNRFtq=Z@j&rf0ifjl]+,mSlh@C9>XBQm:CMoo!W^U?*[2`fF#:SBMdHeA>\&71iLQ$kZ5WP+^O]&24H#,sQLq*:O-i5GRWaD;E#/+6]O\oS^$;oHA!V'd="h#9(9XQa0$qAOa-Ufo-XH-4!6(2?%.I\'/.$Xk5(40@jd)VVbLJ-r,rIr2`*/@RfM2jJFaQecO_<<`_"m*?#0bkUZY"?MPhaf%(+W)(`na`cgh+(*]@]Wt_c[Pbf.gRaleM+7B27/t:`&mR^81:/r1Ylr9fR@8En[#,oet6T\JjfF(`Fi_*95NW/r86_57aj^8"MV`9Yhok-12Zp2`I2G77#rua$80IL_L>4fkW"/CPC$mZhQ%KTkC248P_&ipBj2-u$+9)C7rSLbRs'`;R?WXW;;>sri`4VsDPri+"$mTp-uM_H,3fNQDgL$s,h2Q#@RRqdR!1;dp(QTZX][1l;/Q?60IA,cXrn6RLY:km6X"rcAR)YnTaP4oWSa%H]CO$k?t(f44L@#L,>1JEFoSaGWV-c3h\:RBr@:qpHI@L;M3,C7sDLr_`'*c`8qB9s1<Qp$0X5S)E5QBYB?F2oT^Zs_m60rp:6)l:I#+Y^"FD;PZQ[f+OhR#^t6HlZXfQ%.0>1g6\p$gNLdS!aIj!X`+f]Yi4^,W?fTguLa7-3rP@4uj6g,FslN*/E1(PB>BLR[nsB@CPHr\O36(PASc'JYaq/SBi(agDsi70>7H>gPK,PYBIbn-T&n$8Z'>e$(QC8Vi=fZ;Ye3>WM7qYXp!C]Nk1:AC8l:+/_+.dB>IjIDF-PaqnY%VG)H[1*RMe[q8,jNiSf0>NT&FJr`Qhel?$iQ4V0N!EutRQme_t&]a;jpb7dSS6#K+.1YBYpDd$(.=E_Eg#qW"3\d1\q12e]5@B7OtR/ZZ"`S24_/>bDo\At[;s*4l1$pda=c$nM"_\?KSg,2I`JOp"\dIVXMS#iSCms-KR\QcS1=QP9AH],2$OEk>^hR\TleN`KOh_+~>endstream
-endobj
-15 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1916
->>
-stream
-Gatm;9on$e&A@P9Qs7&=>1JB[gUX.L!X&d*ZuOhV/Q"F<19$GD*WQ#N+XPkuG24Dq(>/<.j:#\XRlA6D;Z((aGI8[lBgk8#cR?tNePJ.uVR61jmoBsK5@j`<q1?bp`+H*I@Ei[2E%F(T.d"j3<kE#njj,V\ZCrP9:?SuFd\HDW?hqC#2$mQP2hnu.r./*#/(LSU.cI2`Q*hmr]iFC3O'A((#d<l4dM\lE),"c(X"@@C2N=fN,LID]POE5Y(Ti/%V;O1'k0mHn?\Sr9cj/gJg&sLu\&-T[==&&88NAj&66!W6/XCLfpU!)#Pgkj7V/%&DBSEWNd7O5+UWVeF7qFMNN*JTaL6[b'LkO?WcC,[1PA+]CC=uA#7N:-[;JnupA"TAa)iq,Hn*:Y;d]&5o6\fGTrYuf[q%Z,(I#9--P@SC9/2Om9H]-N5_Ne&#"L."seftFo?<QI]42cKlk6ttkE+2k\b),@l<_TD79CIEW@&(-_lWVq>TYM4M5"MubPCi>6HgN4n&H=V"Ds8B]XVc2W_tdJ=OFV=YEq'LN!!FN?nmkn!"!%dPPgCfBHTjt%2'dIX"1j)Pb1TRC6/4_\>nU2g%O?`U&@t"*>;%A(Q5X.g2U^a-CV!(.13u)R_3Q^OL2[e%7DELJjY48KqK08f+;>j8%0:8/V;3T&QtCQq1L85>%EV21V"5c^(;\tUB%N`LY*0akm\mC&(D`!1)l5RQ^@EU*+ab]2Cums?:k`/7iJ9sdZ2Jc5`t2XA/a'IsFe`JOEsb`08("c/W\r=JKZ]3Y#J68+b\5Kd1;E9#7oJ]P(1,?ge5.,92\MQ'lWE93_`*`VAFi5.h6KBNE0*,ZaA.&t#%K5@P=Zf4a@[fO-PLf]]j/dJN,Y44#NaIHARVR0V.[f-TmW/sk>U;\D2u3BH]6)&L\>)4oJL/$h_nk<\7)-r^U`YS>I'1$O"Ar'1+E)Qnrha!8U7L(`G#9])uSK[)>mgR0(ZpFCOtU#X-#-F:@)LE25&d8XCJpIrb6G,ZCnsOf*XnK!nuio@"EOikq#RsSfTQHHX-mB'=d25G7c?k?_>W_J'DToo]p5^a.U=?j9X"'+=m3(>6Ia2X0]DFoK&F4=t\sD:aE(n]"!rcT[5M^asZ?^*srL^G:cT&_fDjN?@Af]Wptlj#f:ic#T>cWb-g#^K0oTI'`]m*&PYM")!FMcZ[]-RZV[E=?"ZKZL%5'96E0lYSc'5o!kmq.>'jR.^2;ZcL6+'dGnDh(:06Z0@Y5@=+oYYD3<T005B4-N^/cE%/2mC6I8LXs*Yc+qL\_s#oqp+Pkr^W)91NqeG,nY'L\[*GLTjB9@'K-BV:omnf2X=iQj^\:P])&G2<Ge>>P3poT`L4R0UR)P)O0.d'0>^]D]`+">2aJq?/P!Wc:5K\e<PLPI"BWs=5fjj)/.<$EhF*%_l6nT=uO@4S>Kl-r)I5>EN8.M'rcAorPDONke&mONJB;r)N3L_BpV7h/n4PpM^#9KaoV?>@`$MU+&(9(#BlVQo\;F$f"eV^<&hG.NDS>W7IpkDGiZHOXHH&PW2t!!Dp-.T&KgHK1Urj/n>M-fT=)f\HV3KR57dspA#&qN$t=3FZ(!I!R4[UNHo[omGW5u*K1[jY,%8bq'._#X7<(RRK]=`1;:t_WLl.N^LHHnpe/@U=D;Ai%SpjnO6^8IoAXO&cniU*4g2oMt$!E^M/566[3oSd?d=EdAg;Z3iq3gCkkYXL]/c*Cl#.E885"kHe]'NAL$,=HQX,5,m*!YMTb'BNSi.hBj$G1)MH^3$Q'%j7ra_'#%Y(M;s_]pkkm),$I56iiKSFcW3H`,cGdAm)Q`9M"QFVeNK;5Fl)%>.8(&>!m'*tVPh)0@Eg2#mXq(E;-*1:G3*`K,#9j3;?tQ6aM/6a8Zr=X-0,D1!!M4o>E<?J-q~>endstream
-endobj
-16 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 2004
->>
-stream
-Gatm;9lJcU&A@sBbcOV`Yp;b8Ec+I;'EqAk9a1<TbDKOr)j=N=G:>uVomO/OIE!TP,HtSae8db0]Ql<&:lM$bs".u[f*hHB>s_+TM\RO@PgSJR]j9E@\OjZ[fpqWF)%P\0Pf1[LT$[.[ZbD!ajCfK5C=l60R<Z>"[X,R<89uL!@J9?*ZA!$De]8Q6pe6TQg#kTp\b%tQoR:<Mm+TW>ReD1AJ'=PD.JKE?Xdh6/i,>HNFelLpN5^*[UpXqfWT`,nG*8YD@Tb.lOX1<KNHVn['s4hddHkSt);$Vs,--lcXS#Un0*`_n,TQ=Te_%p,##$,^@[pAcEYc.+L#%sC]DQ(0.3-ds8K_>4j<B_Uce*?!#6fsmg<+I&;aToSC*aYuR0"D,C2$6upm&59>uPdc$=P6/\eY4^+kGC;$:CGtEa?l.SIY)g)r?i!YuLd&=fO@E?tEi5K9&e]!-%0C'GX<#94_Ym'V)K)BFs4ba"bk&`9@9?aWSMt;sg>2Zmf]@S0ZXlSYM/ET<-?LZn#/8CsT&[iX4>SjJK9JEsX[K3kJem`sFS_UGtuF1GnT]DVoP,`GL:'@O%>L4QV@08`b;qkSp%m#f=]k0P,s@,JEZt.k6)c>cC'b@N-btDH*q`OYB:+`SR)H0^iO4N7[.Y\ThZfGkG+0d;UIh>)8.pgImWog22.l'N9ZhZRB@B/FdSb-fKbPd*cT)iffM[Z\<:iA$nIBSYht;mn9EVDA]%rVfMGe4"0rd-C@9U,Y;Tl^-XC7U#+m.d.*o9Dk+#>7<>+2<^Kg-&/l814_US;-)t&)SaIW&OGR;/"SWM8plYpa_6M<%A3&"4E0m9a<^p2(]#&Tef9<(I#=6K&lt6a6H`lsL"*OJK54,#`1j^;%&`0$!d0A/kmi^(RaZ.)BeWhUkdLPOt/h1-ho^_B;h-*)(Kk\2"<\:A)5bUI:85%ZgMkVYrBC.#50]-OKkq6P$:JE:Sc<<*Jee*>kftftIco%d@jkEBH>b%E+Jn6]s#A&,M,V7&R*oA86?k*XPQAm_q;W#.$N;?RCk[V.l_f2&nQs8])jqHF]FgB$G!W_YFcT&uZF0Grq?^;M,7$CcF`OYa0FAFj\g9V)>U&^_Ng/bP5d;i$o_a]6p!4%F;q2OB+$unfq[LI9h@jEnV[JTc1eh[B,_)peZgF6ZfQU5^VlUpIJ=U']t>^h@\B+tqfG1O#!KoP5=OUAslFfPq'nm*W7ib]4,dE#t4Y4PUks/Z1JF?WZI1uVAUT1!r[:!u6*e!^N=3<eT>0talL(:aGG01;NE`>SRJR('JV&s^&VlTHKQG+(g%.Sf@\m3ISLF<8cA;i)O!$NPjfaYt-i=77%URX'_QDh)R]H3aH]CVAe+i+q7./EhJ3C':94f0(uDCH\.uJS9M,"F%W5o6"Q`.TiCejdqE;G"`,]G$e#L5S87rQX0JK*J+YKE0Y<)%t=ChOXdP_BHq,BB5ndXVng2lpBa\I*:dlmCeThk;:pD61mf".l!*I8[7R+7,b#$NEu-OX%QW%q+Q?C;F<;?;jHiX3;_W3=ggSMhg1OZkYJ(Tb=()Mq_J!^<J^1SQ\P'X%;c/OmB[Ogmj(!_e#`g5t5u:HA8B`:PdN:[9(*Y2P+mcI]6tK.W?Roog*<gs'A3i9uJf5_])/QKe3]Lp[<&N"al(hD2[p.qBo@0:%rOG<;7u%9D$P(tCI`n!WPoZ644A^r!>7h2W\S($7'"+h8a]qtk/B!qF7MKgE^.H%5"Jh<2`&JgPqXE[X_S17XV?e`(^4RNE0*h$DgN]1M@@-e3]A'8n_o>;SFF9YDl,G_baor0_\F:tte;6\.$TcRO1n;it\hhF%bL/1,^NA6r-pBcZ<]7j\9p;3S\GTRHP@rQq<@^#<\]g[mp[j@UX.bl2P4*^E9mB>q43R!ej29lgHB%]jU,.6MoN+jo[kLdB)r`G=W2u>u?h,MD<+=\AWX7p'42\O4HdSa?:B5OA1n>#m=hA^YnuFU$ZDZ(hJ>&J4!<8o3@K~>endstream
-endobj
-17 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1917
->>
-stream
-Gau`T9lJcG&A@7.%!&>ZLp`CW4*Gu)`O8$_Fr-&TkTq$KUb"EgW$Nn)m]Z((-%@i#,#3\35odrYLOA^Ubo7rCj!P._Z]aOu"o\EaTk$QLS<@kKVSu&O\%);'.d?B6S^DOC_p,\,LMLLEKu]AT8s<pTMm?V9pA\X!WF';r$DX(jn`D\\^=)""^[T#53F."foo"#5RJEcDdBqZJ6NMs@)NEL%l,il+(#k`:Z\s0d3Zma`5'E`!o&uL#W!.6o&(e[;R5q:,?4'?:,.GsaZ&4r$4tNkm%<AupA=CZ(?s,e'0U+GTQuf"'h;)jeR[gUB]%(sp%BO&4WMJ8]b8m0@PZh;-.@3A@18<96VX3&DB[`kH4*rlkBeQcQP9k.3U0?,7aU4DlJ6I<pJ/ufg;$2'cP[IKiHg!4jjjKAmC"c+<41UKalN\_r?\335e-l&k827IA][<To/7eu@/-@Bm4*/iVmJt-G]qm.0>&*)C_Jk'ikE?MYd:d;e<crKAg6rlsf'90^A3,/?jLV:V+BR/eAh?P7-W^R'Ke#"39!>[snkcQLF6RUO#P)#ZaVDa*Sce+i7CmK,/jhp?TPFqK&UY*2a;8N66\d>L.p`pWQNUT&,:]Y/h<V!Uj@M?!q:5+("b&*TNY>O0XTlAA'\$)1'^N-g`,)V6O68/>c!Ag,')n4S!eMuSOFeqqDq]Tg,*TR]3oR^jCm\,<9^1o8S4$6q.r,E1`YpM`4&leKJOO6NL^NfA.u=0gje7-Lo/N>UKZnO8Ig(#Z:XTBs[_QI3=mLWT$VFU&6mf!([sJL14O!e_iK@@6e(k26HgGc"Q/MW!NLp^;ZPus^o]\7,'6IPp3Zl/6c"%hO),OiI(j6+C0Ld#9%nHO1_V7NX'jNed?JCj;JNS:u*U]u8eP0+!8"6/R)@r<s[(`L[g^tr63<aK2[+[&s3*APnY=m,oJfB6YTgP-OP.$=Pqlie-:WN1^<9o-"SSEXi^`$Ce["[FVTM?-N-t%.oFRW$0lGmr(4'h?6U6fHU"mu9a8G%-#8!+Y.;3K.N>?ktcKLH#74Rm0)[LE@E<5L=8^Op_qUr@0-no#pq#G8T8>1t[_FL"`Y")b@SpE4\k[d>p>D.Vu!A&jM)Zh\j1L;PSMBJ"\d8I=XX'kZ8o88`MUV.$Ds>DN,p[(3q;'k#<P+&e@"Gm18T<Zn,$Wi^2ub=3t2iT+fh1`jo*A.g(j=\>(-,@=EUD-/.cH_bLlSZqS[V2\=+i1&Y"rU-p*6+IJ($u\J)3/K]S@'9/,FQZS1rd>2h88g!8PkTd_bMgicg&`<AEAF.5FT-QWJkdU^Pb\?YgHa[M`KgSl+"Vif#%$dT>k\h2&&e_nqiX+55F1Xm8g`d^T"!BBhZZ_[A&L&b;_l[NNIZB73bq=n@*lTKMiSrE&Z3P8abW-3$*EG$6>Gpan4*)ho?jYa1<RMUA`LH!fpNo2LP7<HDHAd(oSkC!#8$Y7Z4`&UPPc2>WUo)\DqMD&KPB<IMZ)"k@tpQX:SQ6Y$C6D(3)S>&-TA*q/8.GM]q&lppb.o`pD1f](\Eg)HOL_q*!9e]6QD)@WTNBZdHEK[bsilEIT#`q`]2Ma'Q1TG%aOJB6n#04:W#Z4Y$O-DW&4;*fu!0N/esblJ:4QHi(eE)n6+8.h)n%'7W^JW^9&A+M"2++ONUV@gH,HfmJ<-O:X4nK^\0[tDCX/)oV5]ARnG+"b<!omSB)Yb@_7ebd,VFP^7Z&qk"8MH(Hn?KN9f2O!=E?;]O.p<Aj@Id6@/P0>HL<njH68&;(kQ$Yb=pD0:M_N%$HfcO*]&m\*29qps?V,OBnK>=5<kio.`PbN_/4lYF".;"+j8;@'mX%3#S@IY74k;NtG-M95tgAi/h3"_ns0eK!FF2U[6l([F=]gMm&/dm44Zdmj5uuh7K0J6dsQreo?u"~>endstream
-endobj
-18 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1020
->>
-stream
-Gas1]?*B_W&:M=.@c!PS$,qRZRsf,'8lo2ue1,s`_#nr6Gc3ii^&@Uc2PFlkD%oC"Z0.W;k6qDareZ#@7t;+?GlLosW8Q<ZW/DRSJ&8,De$g]Eh78#ik.0Kr:WqTMn#``SbIl0ol1K(/dm1n@7p'Wc_XVP(^.UQ&r)E@9/60I`Z9ek_.!DT.%%3\)Zq6pkYBWMQTT-cT(aM<Tde3sK[*lVh^JqcRILQd6l'+L&JN=Y3_CO&uPp_33P"uqZ^$]tmK-n3L?$X@#<H5qTbFL!Wbl3'6f0&>4pY2!o9P23sO<R'j.qfG<3J<5o\?_A8UjWD2@@J*dd6=A73fQW)a(27<9WJ`$3&C^)s6kfq1X-9F2Nup/Ork-YD0u&9!^;4jPm^h#o6"E4@2CBX4"7VW@CrYB!ursc()B76lkRJn`S@`HZFAlsMf9j6%hL5nCqX>2-V#`>39S.Kf?"dCW9=laP9['R/_nO&;3[eh`%JreUsNqDinAGkj<r[un.H?E97`cR6cG@`XJKT7cAE'H??bU1\orUiCiK4b;lDt-^3/L+Bl9S&APjMk\eZ1=U\2,$Ea4HBW>V46OCn\lk0-P=Pq]!l;J3*g=?qa<kN&"2RGL2pq>LC2jGVK.AIk,YUNP1t.*CpC<-.(4HuRk=FGtibBjr+hR.Q&$>94K97U6sG6?=K?5m,e$iYh&ni"ROJH1mU-SNJrFI]IZmm_jR_pFMl$/E#l\d`T91SEH"4<n,-b/2N`*#jA?c,0g2TKN6*OgcG>>c6k[?Hoh:GNWlGqH40^WmDRQACD`^7MbY2hI;YHU,b*I_X(EF,[sH1HA=<U])oO2iNT6fTIltqe6FY'hQpgc?6/gI<2u'G<"AWpGjuRhTU.IgQ1<=OcaY0hfD5>?lX?l%5q*??K3)+J$'68=Woed9Rj"[Wa4,(Xshpc5$3PT\*8eG=81N-#STU&9?4+?.=0(tX*8IBX0Dk>Cd/VfShFE8q`nA5X3=Ij>(>4k@b*.FJ+O=))spj]@6oH.kR"+C~>endstream
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 12 0 R >>
 endobj
 xref
-0 19
-0000000000 65535 f 
-0000000061 00000 n 
-0000000122 00000 n 
-0000000229 00000 n 
-0000000341 00000 n 
-0000000536 00000 n 
-0000000619 00000 n 
-0000000814 00000 n 
-0000001009 00000 n 
-0000001204 00000 n 
-0000001319 00000 n 
-0000001515 00000 n 
-0000001585 00000 n 
-0000001907 00000 n 
-0000001992 00000 n 
-0000004029 00000 n 
-0000006037 00000 n 
-0000008133 00000 n 
-0000010142 00000 n 
+0 14
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000141 00000 n
+0000000211 00000 n
+0000000286 00000 n
+0000000354 00000 n
+0000003783 00000 n
+0000003929 00000 n
+0000007439 00000 n
+0000007585 00000 n
+0000011324 00000 n
+0000011472 00000 n
+0000012701 00000 n
 trailer
-<<
-/ID 
-[<1742bb6066f71ad7a66bbebb4514bb03><1742bb6066f71ad7a66bbebb4514bb03>]
-% ReportLab generated PDF document -- digest (opensource)
-
-/Info 12 0 R
-/Root 11 0 R
-/Size 19
->>
+<< /Size 14 /Root 1 0 R /Info << /Title (Input Hygiene in Structured LLM Evaluation Pipelines) /Author (Nick Cunningham) >> >>
 startxref
-11254
+12849
 %%EOF
